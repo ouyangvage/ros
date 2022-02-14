@@ -1,0 +1,31 @@
+<launch>
+    <!--start gazebo-->
+    <!--
+    <include file="$(find navigation)/launch/amcl.launch"/>
+    <include file="$(find navigation)/launch/navigation.launch"/>
+    <include file="$(find map)/launch/map_load.launch"/>
+    <include file="$(find model)/launch/gazebo.launch"/>
+    -->
+     
+    <!--start robot model-->
+    <include file="$(find model)/launch/base.launch"/>
+    
+    <!--start ldlidar-->
+    <include file="$(find ldlidar)/launch/ld06.launch"/>
+    
+    <!--start arbotix-->
+    <include file="$(find peripheral)/launch/arbotix.launch"/>
+    
+    <!--start rosserial-->
+    <include file="$(find peripheral)/launch/rosserial.launch"/>
+    
+    <!--start rviz-->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find model)/config/model.rviz"/>
+
+    <!--start map create-->
+    <include file="$(find map)/launch/map_create.launch"/>
+    
+    <!--start webapi-->
+    <include file="$(find peripheral)/launch/webapi.launch"/>
+    
+</launch>

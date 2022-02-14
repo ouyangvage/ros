@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="arbotix_python" type="arbotix_driver" name="arbotix" output="screen">
+        <rosparam file="$(find peripheral)/config/arbotix.yaml" command="load"/>
+        <param name="sim" value="true"/>
+    </node>
+</launch>

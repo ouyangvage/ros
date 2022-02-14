@@ -1,0 +1,123 @@
+<robot name="base" xmlns:xacro="http://wiki.ros.org/xacro">
+    <!--define color--> 
+    <material name="black">
+        <color rgba="0 0 0 1"/> 
+    </material>
+    <material name="yellow">
+        <color rgba="0.5 0.5 0 0.8"/> 
+    </material>
+
+    <!--property-->
+    <xacro:property name="PI" value="3.1415927" />
+
+    <!--driving wheel property-->
+    <xacro:property name="wheel_driving_radius" value="0.085"/>
+    <xacro:property name="wheel_driving_width" value="0.06"/>
+    <xacro:property name="wheel_driving_between" value="0.44"/>
+    <!--define driving wheel-->
+    <xacro:macro name="wheel_driving" params="wheel_name flag">
+        <link name="${wheel_name}">
+            <visual>
+                <geometry name="wheel_geometry">
+                    <cylinder radius="${wheel_driving_radius}" length="${wheel_driving_width}"/> 
+                </geometry>
+                <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+                <material name="black"/>
+            </visual>
+            <collision>
+                <geometry name="wheel_geometry">
+                    <cylinder radius="${wheel_driving_radius}" length="${wheel_driving_width}"/> 
+                    </geometry>
+                <origin xyz="0.0 0.0 0.0" rpy="${PI/2} 0.0 0.0" />
+            </collision>
+            <xacro:cylinder_inertial_matrix m="2" r="${wheel_driving_radius}" h="${wheel_driving_width}"/>
+        </link>
+        <joint name="base_${wheel_name}_joint" type="continuous">
+            <parent link="base_link"/>
+            <child link="${wheel_name}"/>
+            <origin xyz="0 ${(wheel_driving_between/2) * flag} 0" rpy="0 0 0"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+    </xacro:macro>
+
+    <!--trainning wheel property-->
+    <xacro:property name="wheel_trainning_radius" value="0.085"/>
+    <xacro:property name="wheel_trainning_between" value="0.44"/>
+    <!--define trainning wheel-->
+    <xacro:macro name="wheel_trainning" params="wheel_name flag">
+        <link name="${wheel_name}">
+            <visual>
+                <geometry name="wheel_geometry">
+                    <sphere radius="${wheel_trainning_radius}"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <material name="black"/>
+            </visual>
+            <collision>
+                <geometry name="wheel_geometry">
+                    <sphere radius="${wheel_trainning_radius}"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+            </collision>
+            <xacro:sphere_inertial_matrix m="2" r="${wheel_trainning_radius}"/>
+        </link>
+
+        <joint name="${wheel_name}_joint" type="continuous">
+            <parent link="base_link"/>
+            <child link="${wheel_name}"/>
+            <origin xyz="${(wheel_trainning_between/2) * flag} 0 0" rpy="0 0 0"/>
+            <axis xyz="1 1 1"/>
+        </joint>
+    </xacro:macro>
+
+    <!--base_footprint-->    
+    <xacro:property name="base_footprint_radius" value="0.001"/>
+    <link name="base_footprint">
+        <visual>
+            <geometry>
+                <sphere radius="${base_footprint_radius}" />
+            </geometry>
+        </visual>
+    </link>
+
+    <!--base link property-->
+    <xacro:property name="base_radius" value="0.22"/>
+    <xacro:property name="base_length" value="0.08"/>
+    <xacro:property name="base_margin_bottom" value="0.085"/>
+    <!--base link-->
+    <link name="base_link">
+        <visual>
+            <geometry name="base_geometry">
+                <cylinder radius="${base_radius}" length="${base_length}"/>
+            </geometry>
+            <origin xyz="0 0 ${base_margin_bottom/2}" rpy="0 0 0"/>
+            <material name="yellow"/>
+        </visual>
+        <collision>
+            <geometry name="base_geometry">
+                <cylinder radius="${base_radius}" length="${base_length}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+        <xacro:cylinder_inertial_matrix m="4" r="${base_radius}" h="${base_length}"/>
+    </link>
+
+    <joint name="base_link_joint" type="fixed">
+        <parent link="base_footprint" />
+        <child link="base_link" />
+        <origin xyz="0 0 ${base_margin_bottom}" rpy="0 0 0"/> 
+    </joint>
+
+    <!--left wheel-->
+    <xacro:wheel_driving wheel_name="l_wheel" flag="1"/>
+
+    <!--right wheel-->
+    <xacro:wheel_driving wheel_name="r_wheel" flag="-1"/>
+    
+    <!--front wheel-->
+    <xacro:wheel_trainning wheel_name="f_wheel" flag="1"/>
+
+    <!--back wheel-->
+    <xacro:wheel_trainning wheel_name="b_wheel" flag="-1"/>
+
+</robot>
