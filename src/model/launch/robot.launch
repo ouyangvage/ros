@@ -26,9 +26,6 @@
     <!-- <include file="$(find map)/launch/map_create.launch"/> -->
     
     <!--start webapi-->
-    <!-- <include file="$(find peripheral)/launch/webapi.launch"/> -->
-
-    <!--start -->
-    <!-- <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/> -->
+    <include file="$(find peripheral)/launch/webapi.launch"/>
     
 </launch>

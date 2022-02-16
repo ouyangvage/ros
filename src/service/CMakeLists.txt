@@ -10,6 +10,8 @@ project(service)
 find_package(catkin REQUIRED COMPONENTS
   roslaunch
   rospy
+  std_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -53,11 +55,11 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  AddTwoInts.srv
+  MapServer.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -67,10 +69,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs  # Or other packages containing msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -104,7 +106,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES service
-#  CATKIN_DEPENDS roslaunch rospy
+   CATKIN_DEPENDS roslaunch rospy
 #  DEPENDS system_lib
 )
 
@@ -160,6 +162,8 @@ include_directories(
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
   scripts/startlaunch.py
+  scripts/client.py
+  scripts/server.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
