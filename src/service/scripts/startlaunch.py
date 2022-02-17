@@ -59,7 +59,7 @@ def map_server():
             launch_map_create.shutdown()
             command = ""
         elif command == "map_off":
-            return
+            return  
     rospy.spin()
     
 
