@@ -17,15 +17,20 @@
     <include file="$(find peripheral)/launch/arbotix.launch"/>
     
     <!--start rosserial-->
+<<<<<<< HEAD
     <include file="$(find peripheral)/launch/rosserial.launch"/>
+=======
+    <include file="$(find peripheral)/launch/rosserial.launch"/> 
+>>>>>>> ros_dev
     
     <!--start rviz-->
-    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find model)/config/model.rviz"/>
+    <!--<node pkg="rviz" type="rviz" name="rviz" args="-d $(find model)/config/model.rviz"/>-->
 
     <!--start map create-->
     <include file="$(find map)/launch/map_create.launch"/> 
     
     <!--start webapi-->
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     <include file="$(find peripheral)/launch/webapi.launch"/>
 =======
@@ -34,5 +39,8 @@
     <!--start -->
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
 >>>>>>> Stashed changes
+=======
+    <include file="$(find peripheral)/launch/webapi.launch"/> 
+>>>>>>> ros_dev
     
 </launch>
