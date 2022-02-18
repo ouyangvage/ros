@@ -6,9 +6,9 @@ from service.srv import MapServer, MapServerResponse
 command = ''
 uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
 roslaunch.configure_logging(uuid)
-launch_map_create = roslaunch.parent.ROSLaunchParent(uuid, ["/home/fdata/ros/src/map/launch/map_create.launch"])
-launch_map_save = roslaunch.parent.ROSLaunchParent(uuid, ["/home/fdata/ros/src/map/launch/map_save.launch"])
-launch_map_load = roslaunch.parent.ROSLaunchParent(uuid, ["/home/fdata/ros/src/map/launch/map_load.launch"])
+launch_map_create = roslaunch.parent.ROSLaunchParent(uuid, ["/home/dhzhang/ros_ouyang/ros/src/map/launch/map_create.launch"])
+launch_map_save = roslaunch.parent.ROSLaunchParent(uuid, ["/home/dhzhang/ros_ouyang/ros/src/map/launch/map_save.launch"])
+launch_map_load = roslaunch.parent.ROSLaunchParent(uuid, ["/home/dhzhang/ros_ouyang/ros/src/map/launch/map_load.launch"])
 
 def map_function(req):
     global command 
