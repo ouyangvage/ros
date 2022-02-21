@@ -12,8 +12,78 @@
        */
       // Connect to ROS.
       var ros = new ROSLIB.Ros({
-          url : 'ws://192.168.0.107:9090'
+          url : 'ws://192.168.0.165:9090'
         });
+
+      // add map service 
+      var mapServerClient = new ROSLIB.Service({
+          ros : ros,
+          name : '/map_server',
+          serviceType : 'service/MapServer'
+        });
+
+      //map create
+      function map_create(){
+        var request = new ROSLIB.ServiceRequest({
+          map_controller: 'map_create'
+        });
+
+        mapServerClient.callService(request, function(result) {
+          console.log('Result for service call on '
+            + mapServerClient.name
+            + ': '
+            + result.sum);
+        });
+      }
+
+      //map save
+      function map_save(){
+        var request = new ROSLIB.ServiceRequest({
+          map_controller: 'map_save'
+        });
+
+        mapServerClient.callService(request, function(result) {
+          console.log('Result for service call on '
+            + mapServerClient.name
+            + ': '
+            + result.sum);
+        });
+      }
+
+      //map load
+      function map_load(){
+        var request = new ROSLIB.ServiceRequest({
+          map_controller: 'map_load'
+        });
+
+        mapServerClient.callService(request, function(result) {
+          console.log('Result for service call on '
+            + mapServerClient.name
+            + ': '
+            + result.sum);
+        });
+      }
+
+      // add two service 
+      function map_controller(){
+        var addTwoIntsClient = new ROSLIB.Service({
+          ros : ros,
+          name : '/add_two_ints',
+          serviceType : 'service/AddTwoInts'
+        });
+
+        var request = new ROSLIB.ServiceRequest({
+          a : 2,
+          b : 3
+        });
+
+        addTwoIntsClient.callService(request, function(result) {
+          console.log('Result for service call on '
+            + addTwoIntsClient.name
+            + ': '
+            + result.sum);
+        });
+      }
 
       function init() {
         // Create the main viewer.
@@ -71,6 +141,7 @@
             z : 0.0
           }
         });
+
         document.onclick = function(){
           var obj = event.srcElement;
           switch(obj.id){
@@ -119,9 +190,10 @@
 <body onload="init()">
   <h1>fdata</h1>
   <div>
-    <input id="map_create" name="map_create" type="button" value="创建地图"/>
-    <input id="map_save" name="map_save" type="button" value="保存建图"/>
-    <input id="map_load" name="map_load" type="button" value="载入建图"/>
+    <input id="map_create" name="map_create" type="button" value="创建地图" onclick="map_create()"/>
+    <input id="map_save" name="map_save" type="button" value="保存建图" onclick="map_save()"/>
+    <input id="map_load" name="map_load" type="button" value="载入建图" onclick="map_load()"/>
+    <input id="map_off" name="map_off" type="button" value="退出进程" onclick="map_off()"/> 
   </div>
   <div>
     <p id="display" name="display">
@@ -133,7 +205,6 @@
     <input id="move_to_point" name="move_to_point" type="button" value="移到目标点"/>
   </div>
   <div id="controll">
-
       <table id="controll" name="controll" onclick="moveControll()">
         <tr>
            <td>

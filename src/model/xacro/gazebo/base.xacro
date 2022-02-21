@@ -1,14 +1,18 @@
 <robot name="model" xmlns:xacro="http://wiki.ros.org/xacro">
-    <gazebo reference="left_wheel">
+    <gazebo reference="l_wheel">
         <material>Gazebo/Black</material>
     </gazebo>
 
-    <gazebo reference="right_wheel">
+    <gazebo reference="r_wheel">
         <material>Gazebo/Black</material>
     </gazebo>
 
-    <gazebo reference="back_wheel">
+    <gazebo reference="b_wheel">
         <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="f_wheel">
+        <material>Gazebo/Read</material>
     </gazebo>
 
     <gazebo reference="base_link">
@@ -17,14 +21,14 @@
 
 
         <!-- 传动实现:用于连接控制器与关节 -->
-    <xacro:macro name="joint_transmission" params="joint_name">
+    <xacro:macro name="joint_transmission" params="wheel_name">
         <!-- Transmission is important to link the joints and the controller -->
-        <transmission name="${joint_name}_transmission">
+        <transmission name="${wheel_name}_transmission">
             <type>transmission_interface/SimpleTransmission</type>
-            <joint name="${joint_name}">
+            <joint name="${wheel_name}_joint">
                 <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
             </joint>
-            <actuator name="${joint_name}_motor">
+            <actuator name="${wheel_name}_motor">
                 <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
                 <mechanicalReduction>1</mechanicalReduction>
             </actuator>
@@ -32,8 +36,8 @@
     </xacro:macro>
 
     <!-- 每一个驱动轮都需要配置传动装置 -->
-    <xacro:joint_transmission joint_name="left_joint" />
-    <xacro:joint_transmission joint_name="right_joint" />
+    <xacro:joint_transmission wheel_name="l_wheel"/>
+    <xacro:joint_transmission wheel_name="r_wheel"/>
 
     <!-- 控制器 -->
     <gazebo>
@@ -46,16 +50,18 @@
             <alwaysOn>true</alwaysOn>
             <updateRate>100.0</updateRate>
             <legacyMode>true</legacyMode>
-            <leftJoint>left_joint</leftJoint> <!-- 左轮 -->
-            <rightJoint>right_joint</rightJoint> <!-- 右轮 -->
-            <wheelSeparation>${wheel_between}</wheelSeparation> <!-- 车轮间距 -->
-            <wheelDiameter>${wheel_radius * 2}</wheelDiameter> <!-- 车轮直径 -->
+            <leftJoint>l_wheel_joint</leftJoint> <!-- 左轮 -->
+            <rightJoint>r_wheel_joint</rightJoint> <!-- 右轮 -->
+            <wheelSeparation>${wheel_driving_between}</wheelSeparation> <!-- 车轮间距 -->
+            <wheelDiameter>${wheel_driving_radius * 2}</wheelDiameter> <!-- 车轮直径 -->
             <broadcastTF>1</broadcastTF>
             <wheelTorque>30</wheelTorque>
             <wheelAcceleration>1.8</wheelAcceleration>
             <commandTopic>cmd_vel</commandTopic> <!-- 运动控制话题 -->
             <odometryFrame>odom</odometryFrame> 
             <odometryTopic>odom</odometryTopic> <!-- 里程计话题 -->
+            <odometrySource>1</odometrySource>
+            <publishOdomTF>true</publishOdomTF>
             <robotBaseFrame>base_footprint</robotBaseFrame> <!-- 根坐标系 -->
         </plugin>
     </gazebo>

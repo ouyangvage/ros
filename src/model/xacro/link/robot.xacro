@@ -1,11 +1,10 @@
 <robot name="robot" xmlns:xacro="http://wiki.ros.org/xacro">
+    <!--xacro-->
     <xacro:include filename="ineritial.xacro"/>
     <xacro:include filename="base.xacro"/>
     <xacro:include filename="laser.xacro"/>
 
     <!--gazebo仿真-->
-    <!--
     <xacro:include filename="../gazebo/base.xacro"/>
     <xacro:include filename="../gazebo/laser.xacro"/>
-    -->
 </robot>

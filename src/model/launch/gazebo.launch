@@ -1,0 +1,12 @@
+<launch>
+<!--
+    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+-->
+    <!-- 启动 gazebo 仿真环境-->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch" >
+      <arg name="world_name" value ="$(find model)/worlds/house.world" />
+    </include>
+
+    <param name="robot_description" command="$(find xacro)/xacro $(find model)/xacro/link/robot.xacro"/>
+    <node pkg="gazebo_ros" type="spawn_model" name="model" args="-urdf -model robot -param robot_description"/>
+</launch>

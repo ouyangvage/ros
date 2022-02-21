@@ -1,0 +1,4 @@
+<launch>
+ <!-- <node pkg="service" type="server.py" name="add_two_ints_server"/> -->
+ <node pkg="service" type="mapserver.py" name="map_server"/>
+</launch>
