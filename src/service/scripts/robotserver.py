@@ -3,6 +3,7 @@ from numpy import source
 import rospy
 import roslaunch
 from service.srv import RobotServer, RobotServerResponse
+import time
 
 command = ''
 uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
@@ -95,6 +96,7 @@ def robot_server():
             command = ''
         elif command == "server_off":
             return  
+        time.sleep(1)
     rospy.spin()
     
 
