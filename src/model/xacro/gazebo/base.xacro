@@ -43,10 +43,10 @@
     <gazebo>
         <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
             <rosDebugLevel>Debug</rosDebugLevel>
-            <publishWheelTF>true</publishWheelTF>
+            <publishWheelTF>false</publishWheelTF>
             <robotNamespace>/</robotNamespace>
             <publishTf>1</publishTf>
-            <publishWheelJointState>true</publishWheelJointState>
+            <publishWheelJointState>falsee</publishWheelJointState>
             <alwaysOn>true</alwaysOn>
             <updateRate>150.0</updateRate>
             <legacyMode>true</legacyMode>

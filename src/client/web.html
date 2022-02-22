@@ -135,7 +135,7 @@
       }
 
       // add two service 
-      function map_controller(){
+      function service_test(){
         var addTwoIntsClient = new ROSLIB.Service({
           ros : ros,
           name : '/add_two_ints',
@@ -192,6 +192,51 @@
         });
       }
 
+      //get pose //python代码 实时发布位置，订阅此消息即可得到位置
+      function navigation_get_point(){
+        var listener = new ROSLIB.Topic({
+          ros : ros,
+          name : '/listener',
+          messageType : 'std_msgs/String'
+        });
+
+        listener.subscribe(function(message) {
+          console.log('Received message on ' + listener.name + ': ' + message.data);
+          listener.unsubscribe();
+        });
+      }
+
+      //navigation
+      function navigation_to_point(){
+        var target_pose = new ROSLIb.Topic({
+          ros: ros,
+          name: '/move_base_simple/goal',
+          messageType: 'geometry_msgs/PoseStamped'
+        });
+
+        var poseStamped = new ROSLIB.Message({
+          header: {
+            frame_id: "map"
+            },
+          pose: {
+            position:{
+              x: 1.0,
+              y: 0,
+              z: 0
+            },
+            orientation: {
+              x: 0,
+              y: 0,
+              z: 0,
+              w: 1
+            }
+          }
+        });
+
+        target_pose.publish(poseStamped);
+      }
+
+      // move controller
       function moveControll(){
         var cmdVel = new ROSLIB.Topic({
           ros : ros,
@@ -286,8 +331,8 @@
         <input id="navigation_start" name="navigation_start" type="button" value="导航启动" onclick="navigation_start()"/>
         <input id="navigation_end" name="navigation_end" type="button" value="导航关闭" onclick="navigation_end()"/>
         <br>
-        <input id="get_point" name="get_point" type="button" value="获取目标点"/>
-        <input id="move_to_point" name="move_to_point" type="button" value="移到目标点"/>
+        <input id="get_point" name="get_point" type="button" value="获取目标点" />
+        <input id="move_to_point" name="move_to_point" type="button" value="移到目标点" onclick="navigation_to_point()"/>
       </div><br>
       <div id="server_function">
         <input id="server_off" name="server_off" type="button" value="服务停止" onclick="server_off()"/> 
