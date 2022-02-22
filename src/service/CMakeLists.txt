@@ -58,7 +58,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_service_files(
   FILES
   AddTwoInts.srv
-  MapServer.srv
+  RobotServer.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -161,7 +161,7 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
-  scripts/mapserver.py
+  scripts/robotserver.py
   scripts/client.py
   scripts/server.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

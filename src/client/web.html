@@ -15,52 +15,122 @@
           url : 'ws://192.168.0.165:9090'
         });
 
-      // add map service 
-      var mapServerClient = new ROSLIB.Service({
+      // add map_service client
+      var robotServerClient = new ROSLIB.Service({
           ros : ros,
-          name : '/map_server',
-          serviceType : 'service/MapServer'
+          name : '/robot_server',
+          serviceType : 'service/RobotServer'
         });
 
       //map create
       function map_create(){
         var request = new ROSLIB.ServiceRequest({
-          map_controller: 'map_create'
+          robot_controller: 'map_create'
         });
 
-        mapServerClient.callService(request, function(result) {
+        robotServerClient.callService(request, function(result) {
           console.log('Result for service call on '
-            + mapServerClient.name
+            + robotServerClient.name
             + ': '
-            + result.sum);
+            + result.robot_result);
         });
       }
 
       //map save
       function map_save(){
         var request = new ROSLIB.ServiceRequest({
-          map_controller: 'map_save'
+          robot_controller: 'map_save'
         });
 
-        mapServerClient.callService(request, function(result) {
+        robotServerClient.callService(request, function(result) {
           console.log('Result for service call on '
-            + mapServerClient.name
+            + robotServerClient.name
             + ': '
-            + result.sum);
+            + result.robot_result);
         });
       }
 
       //map load
       function map_load(){
         var request = new ROSLIB.ServiceRequest({
-          map_controller: 'map_load'
+          robot_controller: 'map_load'
         });
 
-        mapServerClient.callService(request, function(result) {
+        robotServerClient.callService(request, function(result) {
           console.log('Result for service call on '
-            + mapServerClient.name
+            + robotServerClient.name
             + ': '
-            + result.sum);
+            + result.robot_result);
+        });
+      }
+
+      //amcl
+      function amcl_start(){
+        var request = new ROSLIB.ServiceRequest({
+          robot_controller: 'amcl_start'
+        });
+
+        robotServerClient.callService(request, function(result) {
+          console.log('Result for service call on '
+            + robotServerClient.name
+            + ': '
+            + result.robot_result);
+        });
+      }
+
+      // amcl end
+      function amcl_end(){
+        var request = new ROSLIB.ServiceRequest({
+          robot_controller: 'amcl_end'
+        });
+
+        robotServerClient.callService(request, function(result) {
+          console.log('Result for service call on '
+            + robotServerClient.name
+            + ': '
+            + result.robot_result);
+        });
+      }
+
+      //navigation start
+      function navigation_start(){
+        var request = new ROSLIB.ServiceRequest({
+          robot_controller: 'navigation_start'
+        });
+
+        robotServerClient.callService(request, function(result) {
+          console.log('Result for service call on '
+            + robotServerClient.name
+            + ': '
+            + result.robot_result);
+        });
+      }
+
+      //navigation end
+      function navigation_end(){
+        var request = new ROSLIB.ServiceRequest({
+          robot_controller: 'navigation_end'
+        });
+
+        robotServerClient.callService(request, function(result) {
+          console.log('Result for service call on '
+            + robotServerClient.name
+            + ': '
+            + result.robot_result);
+        });
+      }
+
+      //server off
+      function server_off(){
+        var request = new ROSLIB.ServiceRequest({
+          robot_controller: 'server_off'
+        });
+
+        robotServerClient.callService(request, function(result) {
+          console.log('Result for service call on '
+            + robotServerClient.name
+            + ': '
+            + result.robot_result);
         });
       }
 
@@ -89,7 +159,7 @@
         // Create the main viewer.
         var viewer = new ROS3D.Viewer({
           divID : 'map',
-          width : 400,
+          width : 750,
           height : 400,
           antialias : true
         });
@@ -181,66 +251,164 @@
 
           }
           cmdVel.publish(twist);
-          document.getElementById("display").innerHTML = obj.id;
+          document.getElementById("display_content").innerHTML = obj.id;
         }
       }
     </script>
   </head>
 
 <body onload="init()">
-  <h1>fdata</h1>
-  <div>
-    <input id="map_create" name="map_create" type="button" value="创建地图" onclick="map_create()"/>
-    <input id="map_save" name="map_save" type="button" value="保存建图" onclick="map_save()"/>
-    <input id="map_load" name="map_load" type="button" value="载入建图" onclick="map_load()"/>
-    <input id="map_off" name="map_off" type="button" value="退出进程" onclick="map_off()"/> 
-  </div>
-  <div>
-    <p id="display" name="display">
-      我是内容显示区
-    </p>
-  </div>
-  <div>
-    <input id="get_point" name="get_point" type="button" value="获取目标点"/>
-    <input id="move_to_point" name="move_to_point" type="button" value="移到目标点"/>
-  </div>
-  <div id="controll">
-      <table id="controll" name="controll" onclick="moveControll()">
-        <tr>
-           <td>
-             <input id="left_up" name="left_up" type="button" value="左前" /> 
-           </td> 
-           <td>
-             <input id="up" name="up" type="button" value="向前" />
-           </td>
-           <td>
-             <input id="right_up" name="right_up" type="button" value="右前"/>
-           </td>
-        </tr>
-        <tr>
-          <td>
-            <input id="left" name="left" type="button" value="向左"/> 
-          </td> 
-          <td>
-            <input id="stop" name="stop" type="button" value="停止" />
-          </td>
-          <td>
-            <input id="right" name="right" type="button" value="向右"/>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input id="left_down" name="left_down" type="button" value="左后"/> 
-          </td> 
-          <td>
-            <input id="down" name="down" type="button" value="向后"/>
-          </td>
-          <td>
-            <input id="right_down" name="right_down" type="button" value="右后"/>
-          </td>
-        </tr>
-      </table>
-  </div>
-  <div id="map"></div>
+  <div id="container">
+    <div id="header" style="background-color:#FFA500;">
+      <h1>fdata</h1>
+    </div>
+    
+    <div id="view" style="width:800px;float:left;">
+      <div id="display_content">
+        我是内容显示区
+      </div><br>
+      <div id="display_image">
+        <div id="map"></div>
+      </div>
+    </div>
+
+    <div id="menu" style="float:left">
+      <div id="map_function">
+        <input id="map_create" name="map_create" type="button" value="创建地图" onclick="map_create()"/>
+        <input id="map_save" name="map_save" type="button" value="保存建图" onclick="map_save()"/>
+        <input id="map_load" name="map_load" type="button" value="载入建图" onclick="map_load()"/>
+      </div><br>
+      <div id="amcl_function">
+        <input id="amcl_start" name="amcl_start" type="button" value="定位启动" onclick="amcl_start()"/>
+        <input id="amcl_end" name="amcl_end" type="button" value="定位关闭" onclick="amcl_end()"/>
+      </div><br>
+      <div id="navigation">
+        <input id="navigation_start" name="navigation_start" type="button" value="导航启动" onclick="navigation_start()"/>
+        <input id="navigation_end" name="navigation_end" type="button" value="导航关闭" onclick="navigation_end()"/>
+        <br>
+        <input id="get_point" name="get_point" type="button" value="获取目标点"/>
+        <input id="move_to_point" name="move_to_point" type="button" value="移到目标点"/>
+      </div><br>
+      <div id="server_function">
+        <input id="server_off" name="server_off" type="button" value="服务停止" onclick="server_off()"/> 
+      </div><br>
+      <div id="controll">
+        <table id="controll" name="controll" onclick="moveControll()">
+          <tr>
+              <td>
+                <input id="left_up" name="left_up" type="button" value="左前" /> 
+              </td> 
+              <td>
+                <input id="up" name="up" type="button" value="向前" />
+              </td>
+              <td>
+                <input id="right_up" name="right_up" type="button" value="右前"/>
+              </td>
+          </tr>
+          <tr>
+            <td>
+              <input id="left" name="left" type="button" value="向左"/> 
+            </td> 
+            <td>
+              <input id="stop" name="stop" type="button" value="停止" />
+            </td>
+            <td>
+              <input id="right" name="right" type="button" value="向右"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input id="left_down" name="left_down" type="button" value="左后"/> 
+            </td> 
+            <td>
+              <input id="down" name="down" type="button" value="向后"/>
+            </td>
+            <td>
+              <input id="right_down" name="right_down" type="button" value="右后"/>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    
+    <div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
+      版权 © runoob.com
+    </div>
+    
+    </div>
+
+    <!-- <div id="header" style="background-color:#FFA500;">
+      <h1>fdata </h1>
+    </div>
+
+    <div id="view" style="height:600px;width:600px;float:left;">
+      <div id="content">
+        <p id="display" name="display">
+          我是内容显示区
+        </p>
+      </div>
+      <div id="map"></div>
+    </div> -->
+
+
+    <!-- <div id="map_function">
+      <input id="map_create" name="map_create" type="button" value="创建地图" onclick="map_create()"/>
+      <input id="map_save" name="map_save" type="button" value="保存建图" onclick="map_save()"/>
+      <input id="map_load" name="map_load" type="button" value="载入建图" onclick="map_load()"/>
+    </div>
+    <br/>
+    <div id="amcl_function">
+      <input id="amcl_start" name="amcl_start" type="button" value="定位启动" onclick="amcl_start()"/>
+      <input id="amcl_end" name="amcl_end" type="button" value="定位关闭" onclick="amcl_end()"/>
+    </div>
+    <br/>
+    <div id="navigation">
+      <input id="navigation_start" name="navigation_start" type="button" value="导航启动" onclick="navigation_start()"/>
+      <input id="navigation_end" name="navigation_end" type="button" value="导航关闭" onclick="navigation_end()"/>
+      <input id="get_point" name="get_point" type="button" value="获取目标点"/>
+      <input id="move_to_point" name="move_to_point" type="button" value="移到目标点"/>
+    </div>
+    <br/>
+    <div id="server_function">
+      <input id="server_off" name="server_off" type="button" value="服务停止" onclick="server_off()"/> 
+    </div>
+    <div id="controll">
+        <table id="controll" name="controll" onclick="moveControll()">
+          <tr>
+              <td>
+                <input id="left_up" name="left_up" type="button" value="左前" /> 
+              </td> 
+              <td>
+                <input id="up" name="up" type="button" value="向前" />
+              </td>
+              <td>
+                <input id="right_up" name="right_up" type="button" value="右前"/>
+              </td>
+          </tr>
+          <tr>
+            <td>
+              <input id="left" name="left" type="button" value="向左"/> 
+            </td> 
+            <td>
+              <input id="stop" name="stop" type="button" value="停止" />
+            </td>
+            <td>
+              <input id="right" name="right" type="button" value="向右"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input id="left_down" name="left_down" type="button" value="左后"/> 
+            </td> 
+            <td>
+              <input id="down" name="down" type="button" value="向后"/>
+            </td>
+            <td>
+              <input id="right_down" name="right_down" type="button" value="右后"/>
+            </td>
+          </tr>
+        </table>
+    </div> -->
 </body>
 </html>

@@ -25,7 +25,7 @@
         <!-- Transmission is important to link the joints and the controller -->
         <transmission name="${wheel_name}_transmission">
             <type>transmission_interface/SimpleTransmission</type>
-            <joint name="${wheel_name}_joint">
+            <joint name="base_${wheel_name}_joint">
                 <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
             </joint>
             <actuator name="${wheel_name}_motor">
@@ -48,10 +48,10 @@
             <publishTf>1</publishTf>
             <publishWheelJointState>true</publishWheelJointState>
             <alwaysOn>true</alwaysOn>
-            <updateRate>100.0</updateRate>
+            <updateRate>150.0</updateRate>
             <legacyMode>true</legacyMode>
-            <leftJoint>l_wheel_joint</leftJoint> <!-- 左轮 -->
-            <rightJoint>r_wheel_joint</rightJoint> <!-- 右轮 -->
+            <leftJoint>base_l_wheel_joint</leftJoint> <!-- 左轮 -->
+            <rightJoint>base_r_wheel_joint</rightJoint> <!-- 右轮 -->
             <wheelSeparation>${wheel_driving_between}</wheelSeparation> <!-- 车轮间距 -->
             <wheelDiameter>${wheel_driving_radius * 2}</wheelDiameter> <!-- 车轮直径 -->
             <broadcastTF>1</broadcastTF>

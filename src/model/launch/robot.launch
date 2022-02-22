@@ -1,6 +1,6 @@
 <launch>
     <!--start gazebo-->
-    <!-- <include file="$(find model)/launch/gazebo.launch"/> -->
+    <include file="$(find model)/launch/gazebo.launch"/>
     <!--
     <include file="$(find navigation)/launch/amcl.launch"/>
     <include file="$(find navigation)/launch/navigation.launch"/>
@@ -29,5 +29,5 @@
     <include file="$(find peripheral)/launch/webapi.launch"/>
 
     <!--start service-->
-    <include file="$(find service)/launch/mapserver.launch"/>
+    <include file="$(find service)/launch/robotserver.launch"/>
 </launch>
