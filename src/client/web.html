@@ -12,7 +12,7 @@
        */
       // Connect to ROS.
       var ros = new ROSLIB.Ros({
-          url : 'ws://192.168.0.165:9090'
+          url : 'ws://192.168.0.107:9090'
         });
 
       // add map_service client
@@ -192,23 +192,24 @@
         });
       }
 
-      //get pose //python代码 实时发布位置，订阅此消息即可得到位置
-      function navigation_get_point(){
-        var listener = new ROSLIB.Topic({
+      var listener = new ROSLIB.Topic({
           ros : ros,
-          name : '/listener',
-          messageType : 'std_msgs/String'
+          name : '/move_base_simple/goal',
+          messageType : 'geometry_msgs/PoseStamped'
         });
 
         listener.subscribe(function(message) {
           console.log('Received message on ' + listener.name + ': ' + message.data);
           listener.unsubscribe();
         });
+      //get pose //python代码 实时发布位置，订阅此消息即可得到位置
+      function navigation_get_point(){
+
       }
 
       //navigation
       function navigation_to_point(){
-        var target_pose = new ROSLIb.Topic({
+        var target_pose = new ROSLIB.Topic({
           ros: ros,
           name: '/move_base_simple/goal',
           messageType: 'geometry_msgs/PoseStamped'
@@ -216,7 +217,7 @@
 
         var poseStamped = new ROSLIB.Message({
           header: {
-            frame_id: "map"
+            frame_id: 'base_footprint'
             },
           pose: {
             position:{
@@ -227,8 +228,8 @@
             orientation: {
               x: 0,
               y: 0,
-              z: 0,
-              w: 1
+              z: 1,
+              w: 0
             }
           }
         });

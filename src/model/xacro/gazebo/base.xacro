@@ -61,7 +61,7 @@
             <odometryFrame>odom</odometryFrame> 
             <odometryTopic>odom</odometryTopic> <!-- 里程计话题 -->
             <odometrySource>1</odometrySource>
-            <publishOdomTF>true</publishOdomTF>
+            <publishOdomTF>false</publishOdomTF>
             <robotBaseFrame>base_footprint</robotBaseFrame> <!-- 根坐标系 -->
         </plugin>
     </gazebo>
