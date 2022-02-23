@@ -29,10 +29,11 @@
         });
 
         robotServerClient.callService(request, function(result) {
-          console.log('Result for service call on '
+          document.getElementById("display_content").innerHTML = 
+            '地图服务：'
             + robotServerClient.name
             + ': '
-            + result.robot_result);
+            + result.robot_result;
         });
       }
 
@@ -43,10 +44,11 @@
         });
 
         robotServerClient.callService(request, function(result) {
-          console.log('Result for service call on '
+          document.getElementById("display_content").innerHTML = 
+            '地图服务：'
             + robotServerClient.name
             + ': '
-            + result.robot_result);
+            + result.robot_result;
         });
       }
 
@@ -57,10 +59,11 @@
         });
 
         robotServerClient.callService(request, function(result) {
-          console.log('Result for service call on '
+          document.getElementById("display_content").innerHTML = 
+            '地图服务：'
             + robotServerClient.name
             + ': '
-            + result.robot_result);
+            + result.robot_result;
         });
       }
 
@@ -71,10 +74,11 @@
         });
 
         robotServerClient.callService(request, function(result) {
-          console.log('Result for service call on '
+          document.getElementById("display_content").innerHTML = 
+            'amcl定位：'
             + robotServerClient.name
             + ': '
-            + result.robot_result);
+            + result.robot_result;
         });
       }
 
@@ -85,10 +89,11 @@
         });
 
         robotServerClient.callService(request, function(result) {
-          console.log('Result for service call on '
+          document.getElementById("display_content").innerHTML = 
+            'amcl定位：'
             + robotServerClient.name
             + ': '
-            + result.robot_result);
+            + result.robot_result;
         });
       }
 
@@ -99,10 +104,11 @@
         });
 
         robotServerClient.callService(request, function(result) {
-          console.log('Result for service call on '
+          document.getElementById("display_content").innerHTML = 
+            'move_base导航：'
             + robotServerClient.name
             + ': '
-            + result.robot_result);
+            + result.robot_result;
         });
       }
 
@@ -113,10 +119,11 @@
         });
 
         robotServerClient.callService(request, function(result) {
-          console.log('Result for service call on '
+          document.getElementById("display_content").innerHTML = 
+            'move_base导航：'
             + robotServerClient.name
             + ': '
-            + result.robot_result);
+            + result.robot_result;
         });
       }
 
@@ -127,31 +134,11 @@
         });
 
         robotServerClient.callService(request, function(result) {
-          console.log('Result for service call on '
+          document.getElementById("display_content").innerHTML = 
+            '控制服务关闭：'
             + robotServerClient.name
             + ': '
-            + result.robot_result);
-        });
-      }
-
-      // add two service 
-      function service_test(){
-        var addTwoIntsClient = new ROSLIB.Service({
-          ros : ros,
-          name : '/add_two_ints',
-          serviceType : 'service/AddTwoInts'
-        });
-
-        var request = new ROSLIB.ServiceRequest({
-          a : 2,
-          b : 3
-        });
-
-        addTwoIntsClient.callService(request, function(result) {
-          console.log('Result for service call on '
-            + addTwoIntsClient.name
-            + ': '
-            + result.sum);
+            + result.robot_result;
         });
       }
 
@@ -192,19 +179,21 @@
         });
       }
 
-      var listener = new ROSLIB.Topic({
+
+      //get pose //python代码 实时发布位置，订阅此消息即可得到位置
+      function navigation_get_point(){
+        var listener = new ROSLIB.Topic({
           ros : ros,
-          name : '/move_base_simple/goal',
-          messageType : 'geometry_msgs/PoseStamped'
+          name : '/current_pose',
+          messageType : 'std_msgs/String'
         });
 
         listener.subscribe(function(message) {
-          console.log('Received message on ' + listener.name + ': ' + message.data);
+          document.getElementById("display_content").innerHTML = 
+            '订阅主题：'
+            + listener.name + ': ' + message.data;
           listener.unsubscribe();
         });
-      //get pose //python代码 实时发布位置，订阅此消息即可得到位置
-      function navigation_get_point(){
-
       }
 
       //navigation
@@ -332,7 +321,7 @@
         <input id="navigation_start" name="navigation_start" type="button" value="导航启动" onclick="navigation_start()"/>
         <input id="navigation_end" name="navigation_end" type="button" value="导航关闭" onclick="navigation_end()"/>
         <br>
-        <input id="get_point" name="get_point" type="button" value="获取目标点" />
+        <input id="get_point" name="get_point" type="button" value="获取目标点" onclick="navigation_get_point()"/>
         <input id="move_to_point" name="move_to_point" type="button" value="移到目标点" onclick="navigation_to_point()"/>
       </div><br>
       <div id="server_function">
@@ -377,84 +366,7 @@
       </div>
     </div>
 
-    
     <div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
       版权 © fdata.com
-    </div>
-    
-    </div>
-
-    <!-- <div id="header" style="background-color:#FFA500;">
-      <h1>fdata </h1>
-    </div>
-
-    <div id="view" style="height:600px;width:600px;float:left;">
-      <div id="content">
-        <p id="display" name="display">
-          我是内容显示区
-        </p>
-      </div>
-      <div id="map"></div>
-    </div> -->
-
-
-    <!-- <div id="map_function">
-      <input id="map_create" name="map_create" type="button" value="创建地图" onclick="map_create()"/>
-      <input id="map_save" name="map_save" type="button" value="保存建图" onclick="map_save()"/>
-      <input id="map_load" name="map_load" type="button" value="载入建图" onclick="map_load()"/>
-    </div>
-    <br/>
-    <div id="amcl_function">
-      <input id="amcl_start" name="amcl_start" type="button" value="定位启动" onclick="amcl_start()"/>
-      <input id="amcl_end" name="amcl_end" type="button" value="定位关闭" onclick="amcl_end()"/>
-    </div>
-    <br/>
-    <div id="navigation">
-      <input id="navigation_start" name="navigation_start" type="button" value="导航启动" onclick="navigation_start()"/>
-      <input id="navigation_end" name="navigation_end" type="button" value="导航关闭" onclick="navigation_end()"/>
-      <input id="get_point" name="get_point" type="button" value="获取目标点"/>
-      <input id="move_to_point" name="move_to_point" type="button" value="移到目标点"/>
-    </div>
-    <br/>
-    <div id="server_function">
-      <input id="server_off" name="server_off" type="button" value="服务停止" onclick="server_off()"/> 
-    </div>
-    <div id="controll">
-        <table id="controll" name="controll" onclick="moveControll()">
-          <tr>
-              <td>
-                <input id="left_up" name="left_up" type="button" value="左前" /> 
-              </td> 
-              <td>
-                <input id="up" name="up" type="button" value="向前" />
-              </td>
-              <td>
-                <input id="right_up" name="right_up" type="button" value="右前"/>
-              </td>
-          </tr>
-          <tr>
-            <td>
-              <input id="left" name="left" type="button" value="向左"/> 
-            </td> 
-            <td>
-              <input id="stop" name="stop" type="button" value="停止" />
-            </td>
-            <td>
-              <input id="right" name="right" type="button" value="向右"/>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input id="left_down" name="left_down" type="button" value="左后"/> 
-            </td> 
-            <td>
-              <input id="down" name="down" type="button" value="向后"/>
-            </td>
-            <td>
-              <input id="right_down" name="right_down" type="button" value="右后"/>
-            </td>
-          </tr>
-        </table>
-    </div> -->
 </body>
 </html>
