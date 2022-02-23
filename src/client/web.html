@@ -206,7 +206,7 @@
 
         var poseStamped = new ROSLIB.Message({
           header: {
-            frame_id: 'base_footprint'
+            frame_id: '/map'
             },
           pose: {
             position:{
@@ -320,9 +320,18 @@
       <div id="navigation">
         <input id="navigation_start" name="navigation_start" type="button" value="导航启动" onclick="navigation_start()"/>
         <input id="navigation_end" name="navigation_end" type="button" value="导航关闭" onclick="navigation_end()"/>
-        <br>
-        <input id="get_point" name="get_point" type="button" value="获取目标点" onclick="navigation_get_point()"/>
-        <input id="move_to_point" name="move_to_point" type="button" value="移到目标点" onclick="navigation_to_point()"/>
+      </div><br>
+      <div id="navigation_point_1">
+        位置1:<input id="position_1" name="position_1" type="text"/><br>
+        位姿1:<input id="orientation_1"name="orientation_1" type="text"/><br>  
+        <input id="get_point_1" name="get_point_1" type="button" value="获取目标点1" onclick="navigation_get_point()"/>
+        <input id="move_to_point_1" name="move_to_point_1" type="button" value="移到目标点1" onclick="navigation_to_point()"/>
+      </div><br>
+      <div id="navigation_point_2">
+        位置2:<input id="position_2" name="position_2" type="text"/><br>
+        位姿2:<input id="orientation_2"name="orientation_2" type="text"/><br>  
+        <input id="get_point_2" name="get_point_2" type="button" value="获取目标点2" onclick="navigation_get_point()"/>
+        <input id="move_to_point_2" name="move_to_point_2" type="button" value="移到目标点2" onclick="navigation_to_point()"/>
       </div><br>
       <div id="server_function">
         <input id="server_off" name="server_off" type="button" value="服务停止" onclick="server_off()"/> 
