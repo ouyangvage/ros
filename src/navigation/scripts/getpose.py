@@ -16,6 +16,7 @@ if __name__ == '__main__':
             continue
         print('position', position)
         print('orientation', orientation)
-        msg.data = 'position:' + str(position) +' ' + 'orientation:' + str(orientation)
+        msg.data = '{"position":' + str(position) + ',' +  '"orientation"' + ':' + str(orientation) + '}'
+        # msg.data = '{"position":[1,3,6], "orientation":[3,4,5,6]}'
         pub.publish(msg)
         time.sleep(0.5)

@@ -180,8 +180,9 @@
       }
 
 
-      //get pose //python代码 实时发布位置，订阅此消息即可得到位置
-      function navigation_get_point(){
+      //提取第一个目标点位置
+      function navigation_get_point_1(){
+
         var listener = new ROSLIB.Topic({
           ros : ros,
           name : '/current_pose',
@@ -192,12 +193,18 @@
           document.getElementById("display_content").innerHTML = 
             '订阅主题：'
             + listener.name + ': ' + message.data;
+          var strJson = JSON.parse(message.data);
+          document.getElementById("position_1").value = strJson.position;
+          document.getElementById("orientation_1").value = strJson.orientation;
           listener.unsubscribe();
         });
       }
 
-      //navigation
-      function navigation_to_point(){
+      //移动到第一个目标点
+      function navigation_to_point_1(){
+        var position = document.getElementById("position_1").value.split(',').map(Number);
+        var orientation = document.getElementById("orientation_1").value.split(',').map(Number);
+
         var target_pose = new ROSLIB.Topic({
           ros: ros,
           name: '/move_base_simple/goal',
@@ -210,19 +217,71 @@
             },
           pose: {
             position:{
-              x: 1.0,
-              y: 0,
-              z: 0
+              x: position[0],
+              y: position[1],
+              z: position[2]
             },
             orientation: {
-              x: 0,
-              y: 0,
-              z: 1,
-              w: 0
+              x: orientation[0],
+              y: orientation[1],
+              z: orientation[2],
+              w: orientation[3]
             }
           }
         });
+        console.log(poseStamped);
+        target_pose.publish(poseStamped);
+      }
 
+      //提取第二个目标点位置
+      function navigation_get_point_2(){
+        var listener = new ROSLIB.Topic({
+          ros : ros,
+          name : '/current_pose',
+          messageType : 'std_msgs/String'
+        });
+
+        listener.subscribe(function(message) {
+          document.getElementById("display_content").innerHTML = 
+            '订阅主题：'
+            + listener.name + ': ' + message.data;
+          var strJson = JSON.parse(message.data);
+          document.getElementById("position_2").value = strJson.position;
+          document.getElementById("orientation_2").value = strJson.orientation;
+          listener.unsubscribe();
+        });
+        }
+
+      //移动到第二个目标点
+      function navigation_to_point_2(){
+        var position = document.getElementById("position_2").value.split(',').map(Number);
+        var orientation = document.getElementById("orientation_2").value.split(',').map(Number);
+
+        var target_pose = new ROSLIB.Topic({
+          ros: ros,
+          name: '/move_base_simple/goal',
+          messageType: 'geometry_msgs/PoseStamped'
+        });
+
+        var poseStamped = new ROSLIB.Message({
+          header: {
+            frame_id: '/map'
+            },
+          pose: {
+            position:{
+              x: position[0],
+              y: position[1],
+              z: position[2]
+            },
+            orientation: {
+              x: orientation[0],
+              y: orientation[1],
+              z: orientation[2],
+              w: orientation[3]
+            }
+          }
+        });
+        console.log(poseStamped);
         target_pose.publish(poseStamped);
       }
 
@@ -322,16 +381,16 @@
         <input id="navigation_end" name="navigation_end" type="button" value="导航关闭" onclick="navigation_end()"/>
       </div><br>
       <div id="navigation_point_1">
-        位置1:<input id="position_1" name="position_1" type="text"/><br>
+        位置1:<input id="position_1" name="position_1" type="text" value="124"/><br>
         位姿1:<input id="orientation_1"name="orientation_1" type="text"/><br>  
-        <input id="get_point_1" name="get_point_1" type="button" value="获取目标点1" onclick="navigation_get_point()"/>
-        <input id="move_to_point_1" name="move_to_point_1" type="button" value="移到目标点1" onclick="navigation_to_point()"/>
+        <input id="get_point_1" name="get_point_1" type="button" value="获取目标点1" onclick="navigation_get_point_1()"/>
+        <input id="move_to_point_1" name="move_to_point_1" type="button" value="移到目标点1" onclick="navigation_to_point_1()"/>
       </div><br>
       <div id="navigation_point_2">
         位置2:<input id="position_2" name="position_2" type="text"/><br>
         位姿2:<input id="orientation_2"name="orientation_2" type="text"/><br>  
-        <input id="get_point_2" name="get_point_2" type="button" value="获取目标点2" onclick="navigation_get_point()"/>
-        <input id="move_to_point_2" name="move_to_point_2" type="button" value="移到目标点2" onclick="navigation_to_point()"/>
+        <input id="get_point_2" name="get_point_2" type="button" value="获取目标点2" onclick="navigation_get_point_2()"/>
+        <input id="move_to_point_2" name="move_to_point_2" type="button" value="移到目标点2" onclick="navigation_to_point_2()"/>
       </div><br>
       <div id="server_function">
         <input id="server_off" name="server_off" type="button" value="服务停止" onclick="server_off()"/> 
