@@ -2,10 +2,15 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <script type="text/javascript" src="http://static.robotwebtools.org/threejs/current/three.min.js"></script>
+    <!-- <script type="text/javascript" src="http://static.robotwebtools.org/threejs/current/three.min.js"></script>
     <script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
     <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
-    <script type="text/javascript" src="http://static.robotwebtools.org/ros3djs/current/ros3d.min.js"></script>
+    <script type="text/javascript" src="http://static.robotwebtools.org/ros3djs/current/ros3d.min.js"></script> -->
+    
+    <script type="text/javascript" src="./jsLib/three.min.js"></script>
+    <script type="text/javascript" src="./jsLib/eventemitter2.min.js"></script>
+    <script type="text/javascript" src="./jsLib/roslib.min.js"></script>
+    <script type="text/javascript" src="./jsLib/ros3d.min.js"></script>
     <script type="text/javascript" type="text/javascript">
       /**
        * Setup all visualization elements when the page is loaded.
@@ -383,14 +388,14 @@
       <div id="navigation_point_1">
         位置1:<input id="position_1" name="position_1" type="text" value="124"/><br>
         位姿1:<input id="orientation_1"name="orientation_1" type="text"/><br>  
-        <input id="get_point_1" name="get_point_1" type="button" value="获取目标点1" onclick="navigation_get_point_1()"/>
-        <input id="move_to_point_1" name="move_to_point_1" type="button" value="移到目标点1" onclick="navigation_to_point_1()"/>
+        <input id="get_point_1" name="get_point_1" type="button" value="设置为目标点1" onclick="navigation_get_point_1()"/>
+        <input id="move_to_point_1" name="move_to_point_1" type="button" value="移动到目标点1" onclick="navigation_to_point_1()"/>
       </div><br>
       <div id="navigation_point_2">
         位置2:<input id="position_2" name="position_2" type="text"/><br>
         位姿2:<input id="orientation_2"name="orientation_2" type="text"/><br>  
-        <input id="get_point_2" name="get_point_2" type="button" value="获取目标点2" onclick="navigation_get_point_2()"/>
-        <input id="move_to_point_2" name="move_to_point_2" type="button" value="移到目标点2" onclick="navigation_to_point_2()"/>
+        <input id="get_point_2" name="get_point_2" type="button" value="设置为目标点2" onclick="navigation_get_point_2()"/>
+        <input id="move_to_point_2" name="move_to_point_2" type="button" value="移到到目标点2" onclick="navigation_to_point_2()"/>
       </div><br>
       <div id="server_function">
         <input id="server_off" name="server_off" type="button" value="服务停止" onclick="server_off()"/> 
