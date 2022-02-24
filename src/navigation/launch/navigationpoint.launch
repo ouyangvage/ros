@@ -1,0 +1,3 @@
+<launch>
+ <node pkg="navigation" type="getpose.py" name="robot_tf_listener"/>
+</launch>
