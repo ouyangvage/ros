@@ -40,9 +40,9 @@ int main(int argc , char **argv)
 
 	//编译报错安装 sudo apt-get install libudev-dev
 	//etc/udev/rules.d/下的规则文件中命名
-	port_name = "/dev/ttysWK3"; //RK板固定串口名
+	port_name = "/dev/ttyUSB1"; //RK板固定串口名
 	
-	std::cout<<"LiDAR port:/dev/ttysWK3"  <<std::endl;
+	std::cout<<"LiDAR port:/dev/ttyUSB1"  <<std::endl;
 	std::cout<<"FOUND LiDAR_LD06"  <<std::endl;
 	cmd_port.SetReadCallback([&lidar](const char *byte, size_t len) {
 		if(lidar->Parse((uint8_t*)byte, len))

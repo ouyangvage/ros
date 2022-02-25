@@ -17,7 +17,7 @@
        */
       // Connect to ROS.
       var ros = new ROSLIB.Ros({
-          url : 'ws://192.168.0.107:9090'
+          url : 'ws://192.168.0.102:9090'
         });
 
       // add map_service client
@@ -171,7 +171,7 @@
           angularThres : 0.01,
           transThres : 0.01,
           rate : 10.0,
-          fixedFrame : '/odom'
+          fixedFrame : '/map'
         });
 
         // Setup the URDF client.

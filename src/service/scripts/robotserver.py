@@ -12,11 +12,11 @@ roslaunch.configure_logging(uuid)
 # launch_map_save = roslaunch.parent.ROSLaunchParent(uuid, ["/home/dhzhang/ros_ouyang/ros/src/map/launch/map_save.launch"])
 # launch_map_load = roslaunch.parent.ROSLaunchParent(uuid, ["/home/dhzhang/ros_ouyang/ros/src/map/launch/map_load.launch"])
 
-launch_map_create = roslaunch.parent.ROSLaunchParent(uuid, ["/home/fdata/ros/src/map/launch/map_create.launch"])
-launch_map_save = roslaunch.parent.ROSLaunchParent(uuid, ["/home/fdata/ros/src/map/launch/map_save.launch"])
-launch_map_load = roslaunch.parent.ROSLaunchParent(uuid, ["/home/fdata/ros/src/map/launch/map_load.launch"])
-launch_amcl = roslaunch.parent.ROSLaunchParent(uuid, ["/home/fdata/ros/src/navigation/launch/amcl.launch"])
-launch_navigation = roslaunch.parent.ROSLaunchParent(uuid, ["/home/fdata/ros/src/navigation/launch/navigation.launch"])
+launch_map_create = roslaunch.parent.ROSLaunchParent(uuid, ["/home/ubuntu/ros/src/map/launch/map_create.launch"])
+launch_map_save = roslaunch.parent.ROSLaunchParent(uuid, ["/home/ubuntu/ros/src/map/launch/map_save.launch"])
+launch_map_load = roslaunch.parent.ROSLaunchParent(uuid, ["/home/ubuntu/ros/src/map/launch/map_load.launch"])
+launch_amcl = roslaunch.parent.ROSLaunchParent(uuid, ["/home/ubuntu/ros/src/navigation/launch/amcl.launch"])
+launch_navigation = roslaunch.parent.ROSLaunchParent(uuid, ["/home/ubuntu/ros/src/navigation/launch/navigation.launch"])
 
 
 def robot_function(req):

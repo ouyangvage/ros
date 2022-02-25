@@ -1,4 +1,4 @@
-image: /home/fdata/ros/src/map/config/navigation.pgm
+image: /home/ubuntu/ros/src/map/config/navigation.pgm
 resolution: 0.050000
 origin: [-50.000000, -50.000000, 0.000000]
 negate: 0
