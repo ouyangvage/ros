@@ -1,10 +1,10 @@
 <robot name="laser" xmlns:xacro="http://wiki.ros.org/xacro">
     <xacro:property name="laser_length" value="0.025"/>
     <xacro:property name="laser_radius" value="0.025"/>
-<!--安装位置-->    
+<!--laser position-->    
     <xacro:property name="laser_joint_x" value="0"/>
     <xacro:property name="laser_joint_y" value="0"/>
-    <xacro:property name="laser_joint_z" value="0.14"/>
+    <xacro:property name="laser_joint_z" value="0.19"/>
 
     <link name="laser_link">
         <visual>
@@ -16,7 +16,7 @@
         </visual>
     </link>
     <joint name="lasesr_joint" type="fixed">
-        <parent link="base_link"/>
+        <parent link="base_footprint"/>
         <child link="laser_link"/>
         <origin xyz="${laser_joint_x} ${laser_joint_y} ${laser_joint_z}"/>
     </joint>

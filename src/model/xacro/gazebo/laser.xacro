@@ -1,6 +1,6 @@
 <robot name="laser" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <!-- 雷达 -->
+  <!-- laser -->
   <gazebo reference="laser_link">
     <material>Gazebo/Black</material>
     <sensor type="ray" name="rplidar">

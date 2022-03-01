@@ -30,7 +30,7 @@
                     </geometry>
                 <origin xyz="0.0 0.0 0.0" rpy="${PI/2} 0.0 0.0" />
             </collision>
-            <xacro:cylinder_inertial_matrix m="2" r="${wheel_driving_radius}" h="${wheel_driving_width}"/>
+            <xacro:cylinder_inertial_matrix m="10" r="${wheel_driving_radius}" h="${wheel_driving_width}"/>
         </link>
         <joint name="base_${wheel_name}_joint" type="continuous">
             <parent link="base_link"/>
@@ -99,7 +99,7 @@
             </geometry>
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </collision>
-        <xacro:cylinder_inertial_matrix m="4" r="${base_radius}" h="${base_length}"/>
+        <xacro:cylinder_inertial_matrix m="15" r="${base_radius}" h="${base_length}"/>
     </link>
 
     <joint name="base_link_joint" type="fixed">

@@ -4,7 +4,7 @@
     <xacro:include filename="base.xacro"/>
     <xacro:include filename="laser.xacro"/>
 
-    <!--gazebo仿真-->
+    <!--gazebo-->
     <xacro:include filename="../gazebo/base.xacro"/>
     <xacro:include filename="../gazebo/laser.xacro"/>
 </robot>

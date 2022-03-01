@@ -20,7 +20,7 @@
     </gazebo>
 
 
-        <!-- 传动实现:用于连接控制器与关节 -->
+        <!-- joint_transmission -->
     <xacro:macro name="joint_transmission" params="wheel_name">
         <!-- Transmission is important to link the joints and the controller -->
         <transmission name="${wheel_name}_transmission">
@@ -35,34 +35,32 @@
         </transmission>
     </xacro:macro>
 
-    <!-- 每一个驱动轮都需要配置传动装置 -->
+    <!-- settion transimision for driver wheel  -->
     <xacro:joint_transmission wheel_name="l_wheel"/>
     <xacro:joint_transmission wheel_name="r_wheel"/>
 
-    <!-- 控制器 -->
+    <!--differential controller -->
     <gazebo>
         <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
             <rosDebugLevel>Debug</rosDebugLevel>
             <publishWheelTF>false</publishWheelTF>
             <robotNamespace>/</robotNamespace>
             <publishTf>1</publishTf>
-            <publishWheelJointState>falsee</publishWheelJointState>
+            <publishWheelJointState>false</publishWheelJointState>
             <alwaysOn>true</alwaysOn>
-            <updateRate>150.0</updateRate>
+            <updateRate>30.0</updateRate>
             <legacyMode>true</legacyMode>
-            <leftJoint>base_l_wheel_joint</leftJoint> <!-- 左轮 -->
-            <rightJoint>base_r_wheel_joint</rightJoint> <!-- 右轮 -->
-            <wheelSeparation>${wheel_driving_between}</wheelSeparation> <!-- 车轮间距 -->
-            <wheelDiameter>${wheel_driving_radius * 2}</wheelDiameter> <!-- 车轮直径 -->
+            <leftJoint>base_l_wheel_joint</leftJoint> <!-- left wheel -->
+            <rightJoint>base_r_wheel_joint</rightJoint> <!-- right wheel-->
+            <wheelSeparation>${wheel_driving_between}</wheelSeparation> <!-- distance of left and right wheel  -->
+            <wheelDiameter>${wheel_driving_radius * 2}</wheelDiameter> <!-- radius * 2 -->
             <broadcastTF>1</broadcastTF>
             <wheelTorque>30</wheelTorque>
             <wheelAcceleration>1.8</wheelAcceleration>
-            <commandTopic>cmd_vel</commandTopic> <!-- 运动控制话题 -->
+            <commandTopic>cmd_vel</commandTopic> <!-- topic for controller-->
             <odometryFrame>odom</odometryFrame> 
-            <odometryTopic>odom</odometryTopic> <!-- 里程计话题 -->
-            <odometrySource>1</odometrySource>
-            <publishOdomTF>false</publishOdomTF>
-            <robotBaseFrame>base_footprint</robotBaseFrame> <!-- 根坐标系 -->
+            <odometryTopic>odom</odometryTopic> <!-- odmetry topic  -->
+            <robotBaseFrame>base_footprint</robotBaseFrame> <!-- base frame -->
         </plugin>
     </gazebo>
 </robot>
