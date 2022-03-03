@@ -1,8 +1,9 @@
+
+
+
 <launch>
-<!--
-    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
--->
-    <!-- 启动 gazebo 仿真环境-->
+    <!-- <include file="$(find gazebo_ros)/launch/empty_world.launch"/> -->
+    <!-- start gazebo-->
     <include file="$(find gazebo_ros)/launch/empty_world.launch" >
       <arg name="world_name" value ="$(find model)/worlds/house.world" />
     </include>

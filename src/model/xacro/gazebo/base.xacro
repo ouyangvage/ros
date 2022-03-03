@@ -55,11 +55,11 @@
             <wheelSeparation>${wheel_driving_between}</wheelSeparation> <!-- distance of left and right wheel  -->
             <wheelDiameter>${wheel_driving_radius * 2}</wheelDiameter> <!-- radius * 2 -->
             <broadcastTF>1</broadcastTF>
-            <wheelTorque>30</wheelTorque>
-            <wheelAcceleration>1.8</wheelAcceleration>
-            <commandTopic>cmd_vel</commandTopic> <!-- topic for controller-->
+            <wheelTorque>30</wheelTorque> -->
+            <wheelAcceleration>1.8</wheelAcceleration> 
+            <commandTopic>cmd_vel</commandTopic>
             <odometryFrame>odom</odometryFrame> 
-            <odometryTopic>odom</odometryTopic> <!-- odmetry topic  -->
+            <odometryTopic>odom</odometryTopic> 
             <robotBaseFrame>base_footprint</robotBaseFrame> <!-- base frame -->
         </plugin>
     </gazebo>
